@@ -8,7 +8,7 @@ import { FormEdge } from './form';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FormEdgeComponent implements OnInit {
-
+  types = ['line', 'polyline', 'arc', 'quadratic', 'cubic', 'cubic-vertical', 'cubic-horizontal', 'loop'];
   @Input() form: FormEdge = new FormEdge();
   constructor() { }
 

@@ -10,3 +10,9 @@ g6-graph {
   height: 100%;
   width: 100%;
 }
+
+mat-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

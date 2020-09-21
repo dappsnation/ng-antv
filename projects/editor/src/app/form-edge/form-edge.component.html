@@ -1,6 +1,14 @@
 <form [formGroup]="form">
+  <!-- Label -->
   <mat-form-field>
     <mat-label>Label</mat-label>
     <input matInput formControlName="label" />
+  </mat-form-field>
+  <!-- Type -->
+  <mat-form-field>
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option *ngFor="let type of types" [value]="type">{{ type }}</mat-option>
+    </mat-select>
   </mat-form-field>
 </form>

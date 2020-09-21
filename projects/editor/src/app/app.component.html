@@ -11,16 +11,19 @@
       [maxZoom]="canvasForm.select('maxZoom') | async"
     >
       <ng-container *ngFor="let node of nodesForm.value$ | async">
-        <g6-node [config]="node" (click)="select('node', node.id)" (selectChange)="onSelect($event)"></g6-node>
+        <g6-node [config]="node" (click)="select('node', node.id)"></g6-node>
       </ng-container>
-      <ng-container *ngFor="let edge of edges">
+      <ng-container *ngFor="let edge of edgesForm.value$ | async">
         <g6-edge [config]="edge" (click)="select('edge', edge.id)"></g6-edge>
       </ng-container>
     </g6-graph>
   </mat-sidenav-content>
 
   <mat-sidenav mode="side" opened position="end">
-    <button mat-button (click)="addNode()">Add node</button>
+    <mat-toolbar>
+      <h5>{{ selection | titlecase }}</h5>
+      <button mat-button (click)="addNode()">Add node</button>
+    </mat-toolbar>
     <ng-container [ngSwitch]="selection">
       <ng-container *ngSwitchCase="'graph'">
         <editor-form-canvas [form]="canvasForm"></editor-form-canvas>
@@ -29,7 +32,7 @@
         <editor-form-node [form]="nodesForm.getNode(selectedId!)"></editor-form-node>
       </ng-container>
       <ng-container *ngSwitchCase="'edge'">
-        ID: {{ selectedId }}
+        <editor-form-edge [form]="edgesForm.getEdge(selectedId!)"></editor-form-edge>
       </ng-container>
     </ng-container>
   </mat-sidenav>

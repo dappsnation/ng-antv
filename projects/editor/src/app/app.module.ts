@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { FormCanvasComponent } from './form-canvas/form-canvas.component';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -33,6 +34,7 @@ import { FormEdgeComponent } from './form-edge/form-edge.component';
     ReactiveFormsModule,
     G6GraphModule,
     MatSidenavModule,
+    MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,

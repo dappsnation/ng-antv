@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
-import { EdgeConfig, NodeConfig } from '@antv/g6/lib/types';
+import { EdgeConfig } from '@antv/g6/lib/types';
 import { G6Graph } from 'ng-g6/graph';
 import { FormCanvas } from './form-canvas/form';
+import { FormEdgeList } from './form-edge/form';
 import { FormNodeList } from './form-node/form';
 
 @Component({
@@ -16,6 +17,7 @@ export class AppComponent {
   selectedId?: string;
   canvasForm = new FormCanvas();
   nodesForm = new FormNodeList();
+  edgesForm = new FormEdgeList();
   edges: EdgeConfig[] = [];
 
   addNode() {
@@ -23,7 +25,7 @@ export class AppComponent {
   }
 
   addEdge(edge: EdgeConfig) {
-    this.edges.push(edge);
+    this.edgesForm.add(edge);
   }
 
   select(selection: 'node' | 'edge' | 'graph', id?: string) {

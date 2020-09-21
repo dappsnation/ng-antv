@@ -1,14 +1,17 @@
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
-import { NodeConfig } from '@antv/g6/lib/types';
+import { EdgeConfig } from '@antv/g6/lib/types';
 import { Observable } from 'rxjs';
 
 export class FormEdge extends FormGroup {
 
-  constructor(node: Partial<NodeConfig> = {}) {
+  constructor(node: Partial<EdgeConfig> = {}) {
     super({
       id: new FormControl(node.id),
+      type: new FormControl(node.type),
       label: new FormControl(node.label),
+      source: new FormControl(node.source),
+      target: new FormControl(node.target),
     })
   }
 
@@ -21,12 +24,12 @@ export class FormEdge extends FormGroup {
 }
 
 export class FormEdgeList extends FormGroup {
-  value$: Observable<NodeConfig[]>;
+  value$: Observable<EdgeConfig[]>;
   
-  constructor(nodes: NodeConfig[] = []) {
+  constructor(edges: EdgeConfig[] = []) {
     const controls: Record<string, FormEdge> = {};
-    for (const node of nodes) {
-      controls[node.id] = new FormEdge(node);
+    for (const edge of edges) {
+      controls[edge.id!] = new FormEdge(edge);
     }
     super(controls);
     this.value$ = this.valueChanges.pipe(
@@ -36,11 +39,11 @@ export class FormEdgeList extends FormGroup {
   }
 
 
-  add(node: NodeConfig) {
-    this.addControl(node.id, new FormEdge(node));
+  add(edge: EdgeConfig) {
+    this.addControl(edge.id!, new FormEdge(edge));
   }
 
-  getNode(id: string): FormEdge {
+  getEdge(id: string): FormEdge {
     return this.controls[id] as FormEdge;
   }
 }
