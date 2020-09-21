@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { G6GraphModule } from 'ng-g6/graph';
+import { G6GraphModule } from 'ng-antv-g6';
 
 import { AppComponent } from './app.component';
 import { FormCanvasComponent } from './form-canvas/form-canvas.component';

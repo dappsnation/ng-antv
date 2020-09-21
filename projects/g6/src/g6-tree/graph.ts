@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, Inject, Input, ViewContainerRef  } from '@angular/core';
 import { TreeGraph } from '@antv/g6';
 import { GraphOptions, LayoutConfig } from '@antv/g6/lib/types';
-import { G6GraphBase } from '../core';
+import { G6GraphBase } from '../g6-core';
 import { G6TreeNode } from './node';
 import { G6_TREE_GRAPH_OPTIONS } from './options';
 
@@ -28,7 +28,7 @@ export class G6TreeGraph extends G6GraphBase {
   }
 
   constructor(
-    @Inject(G6_TREE_GRAPH_OPTIONS) private options: Partial<GraphOptions>,
+    @Inject(G6_TREE_GRAPH_OPTIONS) private options: GraphOptions,
     private el: ElementRef<HTMLElement>,
     viewContainerRef: ViewContainerRef
   ) {

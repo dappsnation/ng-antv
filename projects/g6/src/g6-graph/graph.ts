@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Inject, Input, QueryList, ViewContainerRef, ViewEncapsulation, Output, EventEmitter, HostBinding, HostListener } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Inject, Input, QueryList, ViewContainerRef } from '@angular/core';
 import { Graph } from '@antv/g6';
 import { GraphOptions, LayoutConfig } from '@antv/g6/lib/types';
 import { combineLatest, Subscription } from 'rxjs';
@@ -6,7 +6,7 @@ import { debounceTime, startWith } from 'rxjs/operators';
 import { G6Combo } from './combo';
 import { G6Edge } from './edge';
 import { G6Node } from './node';
-import { G6GraphBase } from '../core';
+import { G6GraphBase } from '../g6-core';
 import { G6_GRAPH_OPTIONS } from './options';
 import { G6Group } from './group';
 

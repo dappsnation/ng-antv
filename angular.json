@@ -3,38 +3,38 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-g6": {
+    "g6": {
       "projectType": "library",
-      "root": "projects/ng-g6",
-      "sourceRoot": "projects/ng-g6/src",
+      "root": "projects/ng6",
+      "sourceRoot": "projects/g6/src",
       "prefix": "g6",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/ng-g6/tsconfig.lib.json",
-            "project": "projects/ng-g6/ng-package.json"
+            "tsConfig": "projects/g6/tsconfig.lib.json",
+            "project": "projects/g6/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ng-g6/tsconfig.lib.prod.json"
+              "tsConfig": "projects/g6/tsconfig.lib.prod.json"
             }
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ng-g6/src/test.ts",
-            "tsConfig": "projects/ng-g6/tsconfig.spec.json",
-            "karmaConfig": "projects/ng-g6/karma.conf.js"
+            "main": "projects/g6/src/test.ts",
+            "tsConfig": "projects/g6/tsconfig.spec.json",
+            "karmaConfig": "projects/g6/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/ng-g6/tsconfig.lib.json",
-              "projects/ng-g6/tsconfig.spec.json"
+              "projects/g6/tsconfig.lib.json",
+              "projects/g6/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -167,5 +167,5 @@
         }
       }
     }},
-  "defaultProject": "ng-g6"
+  "defaultProject": "g6"
 }

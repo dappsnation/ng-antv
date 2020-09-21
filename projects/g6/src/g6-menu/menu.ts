@@ -2,8 +2,8 @@ import { Overlay } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Directive, Optional, TemplateRef } from '@angular/core';
 import { IG6GraphEvent, Item } from '@antv/g6/lib/types';
-import { G6Graph } from '../graph/graph';
-import { G6TreeGraph } from '../tree/graph';
+import { G6Graph } from '../g6-graph/graph';
+import { G6TreeGraph } from '../g6-tree/graph';
 
 // TODO add G6Item & event
 type Context<T> = { $implicit: T };

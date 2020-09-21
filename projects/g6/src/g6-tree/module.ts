@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { G6_TREE_GRAPH_OPTIONS, defaultTreeOption } from './options';
 import { G6TreeGraph } from './graph';
 import { G6TreeNode } from './node';
-import { G6MenuModule } from '../menu/module';
+import { G6MenuModule } from '../g6-menu/module';
 
 @NgModule({
   declarations: [

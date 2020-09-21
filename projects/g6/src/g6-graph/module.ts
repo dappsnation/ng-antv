@@ -5,7 +5,7 @@ import { G6Edge } from "./edge";
 import { G6Group } from "./group";
 import { G6Combo } from "./combo";
 import { G6Node } from "./node";
-import { G6MenuModule } from '../menu/module';
+import { G6MenuModule } from '../g6-menu/module';
 
 import { defaultOptions, G6_GRAPH_OPTIONS } from './options';
 
