@@ -1,6 +1,6 @@
 import { Input, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { FormCanvas } from './form';
+import { FormCanvas, layouts } from './form';
 
 const modes = [
   'drag-combo', 'collapse-expand-combo', 'drag-canvas', 'zoom-canvas', 'drag-node',
@@ -16,7 +16,8 @@ const modes = [
 })
 export class FormCanvasComponent implements OnInit {
   public modes = modes;
-  
+  public layouts = layouts;
+
   @Input() form = new FormCanvas();
   constructor() { }
 

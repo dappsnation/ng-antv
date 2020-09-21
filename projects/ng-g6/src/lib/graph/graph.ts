@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Inject, Input, QueryList, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Inject, Input, QueryList, ViewContainerRef, ViewEncapsulation, Output, EventEmitter, HostBinding, HostListener } from '@angular/core';
 import { Graph } from '@antv/g6';
 import { GraphOptions, LayoutConfig } from '@antv/g6/lib/types';
 import { combineLatest, Subscription } from 'rxjs';
@@ -20,8 +20,8 @@ type ItemRecord = {
 @Component({
   selector: 'g6-graph',
   template: '<ng-content></ng-content>',
-  styles: [':host {display: block; }'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styles: [':host {display: block;}'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class G6Graph extends G6GraphBase {
   public graph: Graph;
@@ -45,7 +45,7 @@ export class G6Graph extends G6GraphBase {
   }
 
   @Input() set layout(layout: LayoutConfig) {
-    if (layout) {
+    if (layout?.type) {
       this.graph.updateLayout(layout)
     }
   }

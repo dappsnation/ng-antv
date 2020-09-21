@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, ViewChild } from '@angular/core';
 import { EdgeConfig, NodeConfig } from '@antv/g6/lib/types';
 import { G6Graph } from 'ng-g6/graph';
 import { FormCanvas } from './form-canvas/form';
+import { FormNodeList } from './form-node/form';
 
 @Component({
   selector: 'editor-root',
@@ -11,15 +12,22 @@ import { FormCanvas } from './form-canvas/form';
 })
 export class AppComponent {
   @ViewChild(G6Graph) graph?: G6Graph;
+  selection: 'node' | 'graph' | 'edge' = 'graph';
+  selectedId?: string;
   canvasForm = new FormCanvas();
-  nodes: NodeConfig[] = [];
+  nodesForm = new FormNodeList();
   edges: EdgeConfig[] = [];
 
-  ngOnInit() {
-    console.log(this.canvasForm);
+  addNode() {
+    this.nodesForm.add({ id: Math.random().toString() });
   }
 
-  addNode() {
-    this.nodes.push({ id: Math.random().toString() });
+  addEdge(edge: EdgeConfig) {
+    this.edges.push(edge);
+  }
+
+  select(selection: 'node' | 'graph', id?: string) {
+    this.selection = selection;
+    this.selectedId = id;
   }
 }

@@ -1,0 +1,14 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Label</mat-label>
+    <input matInput formControlName="label" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Shape</mat-label>
+    <mat-select formControlName="shape">
+      <mat-option *ngFor="let shape of shapes" [value]="shape">
+        {{ shape }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

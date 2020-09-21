@@ -18,16 +18,22 @@ export abstract class G6GraphBase implements OnDestroy {
     this.graph.setMode(mode);
   }
 
-  @Input() set autopaint(autopaint: string | boolean) {
-    this.graph.setAutoPaint(typeof autopaint === 'string' || autopaint === true);
+  @Input() set autopaint(autopaint: boolean) {
+    if (typeof autopaint === 'boolean') {
+      this.graph.setAutoPaint(autopaint);
+    }
   }
 
   @Input() set maxZoom(ratio: number) {
-    this.graph.setMaxZoom(ratio);
+    if (typeof ratio === 'number') {
+      this.graph.setMaxZoom(ratio);
+    }
   }
 
   @Input() set minZoom(ratio: number) {
-    this.graph.setMinZoom(ratio);
+    if (typeof ratio === 'number') {
+      this.graph.setMinZoom(ratio);
+    }
   }
 
   @Output() click = new EventEmitter<IG6GraphEvent>();
@@ -56,31 +62,38 @@ export abstract class G6GraphBase implements OnDestroy {
       return type ? triggerEventOn(type, name)(e) : this[name].emit(e);
     }
 
-    if (this.graph) {
-      this.graph.on(G6Event.CONTEXTMENU, triggerEvent('contextmenu'));
-      this.graph.on(G6Event.MOUSEOVER, triggerEvent('hover'));
-      this.graph.on(G6Event.DBLCLICK, triggerEvent('dbclick'));
-      this.graph.on(G6Event.MOUSEENTER, triggerEvent('mouseenter'));
-      this.graph.on(G6Event.MOUSELEAVE, triggerEvent('mouseleave'));
-      this.graph.on(G6Event.MOUSEMOVE, triggerEvent('mousemove'));
-      this.graph.on(G6Event.WHEEL, triggerEvent('wheel'));
-      // Close context menu when click outside
-      this.graph.on(G6Event.CLICK, (e: IG6GraphEvent) => {
-        this.closeContextMenu();
-        triggerEvent('click')(e);
-      });
-    
-      // NODE
-      this.graph.on(G6Event.NODE_DRAG, triggerEventOn('node', 'drag'));
-      this.graph.on(G6Event.NODE_DRAGSTART, triggerEventOn('node', 'dragstart'));
-      this.graph.on(G6Event.NODE_DRAGEND, triggerEventOn('node', 'dragend'));
-      this.graph.on(G6Event.NODE_DRAGLEAVE, triggerEventOn('node', 'dragleave'));
-      this.graph.on(G6Event.NODE_DROP, triggerEventOn('node', 'drop'));
+
+    // Prevent canvas to propagate event to parent graph
+    const canvas: HTMLCanvasElement = this.graph.get('canvas').cfg.context.canvas;
+    canvas.onclick = (e: MouseEvent) => e.stopPropagation();
+    canvas.oncontextmenu = (e: MouseEvent) => e.stopPropagation();
+    canvas.onmouseenter = (e: MouseEvent) => e.stopPropagation();
+    canvas.onmouseleave = (e: MouseEvent) => e.stopPropagation();
+
+    this.graph.on(G6Event.CONTEXTMENU, triggerEvent('contextmenu'));
+    this.graph.on(G6Event.MOUSEOVER, triggerEvent('hover'));
+    this.graph.on(G6Event.DBLCLICK, triggerEvent('dbclick'));
+    this.graph.on(G6Event.MOUSEENTER, triggerEvent('mouseenter'));
+    this.graph.on(G6Event.MOUSELEAVE, triggerEvent('mouseleave'));
+    this.graph.on(G6Event.MOUSEMOVE, triggerEvent('mousemove'));
+    this.graph.on(G6Event.WHEEL, triggerEvent('wheel'));
+    // Close context menu when click outside
+    this.graph.on(G6Event.CLICK, (e: IG6GraphEvent) => {
+      this.closeContextMenu();
+      triggerEvent('click')(e);
+    });
   
+    // NODE
+    this.graph.on(G6Event.NODE_DRAG, triggerEventOn('node', 'drag'));
+    this.graph.on(G6Event.NODE_DRAGSTART, triggerEventOn('node', 'dragstart'));
+    this.graph.on(G6Event.NODE_DRAGEND, triggerEventOn('node', 'dragend'));
+    this.graph.on(G6Event.NODE_DRAGLEAVE, triggerEventOn('node', 'dragleave'));
+    this.graph.on(G6Event.NODE_DROP, triggerEventOn('node', 'drop'));
+
+
+    // Behavior built-in
+    this.graph.on('aftercreateedge', ({ edge }: { edge: Item }) => this.createEdge.emit(edge.getModel()));
   
-      // Behavior built-in
-      this.graph.on('aftercreateedge', ({ edge }: { edge: Item }) => this.createEdge.emit(edge.getModel()));
-    }
 
   }
 

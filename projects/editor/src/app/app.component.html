@@ -1,17 +1,36 @@
 <mat-sidenav-container>
   <mat-sidenav-content>
-    <g6-graph [mode]="canvasForm.mode$ | async" [modes]="canvasForm.modes$ | async">
-      <ng-container *ngFor="let node of nodes">
-        <g6-node [config]="node"></g6-node>
+    <g6-graph
+      (click)="select('graph')"
+      (createEdge)="addEdge($event)"
+      [mode]="canvasForm.select('mode') | async"
+      [modes]="canvasForm.select('modes') | async"
+      [layout]="canvasForm.select('layout') | async"
+      [autopaint]="canvasForm.select('autopaint') | async"
+      [minZoom]="canvasForm.select('minZoom') | async"
+      [maxZoom]="canvasForm.select('maxZoom') | async"
+    >
+      <ng-container *ngFor="let node of nodesForm.value$ | async">
+        <g6-node [config]="node" (click)="select('node', node.id)"></g6-node>
       </ng-container>
       <ng-container *ngFor="let edge of edges">
-        <g6-edge [config]="edge"></g6-edge>
+        <g6-edge [config]="edge" (click)="select('edge', edge.id)"></g6-edge>
       </ng-container>
     </g6-graph>
   </mat-sidenav-content>
 
   <mat-sidenav mode="side" opened position="end">
     <button mat-button (click)="addNode()">Add node</button>
-    <editor-form-canvas [form]="canvasForm"></editor-form-canvas>
+    <ng-container [ngSwitch]="selection">
+      <ng-container *ngSwitchCase="'graph'">
+        <editor-form-canvas [form]="canvasForm"></editor-form-canvas>
+      </ng-container>
+      <ng-container *ngSwitchCase="'node'">
+        <editor-form-node [form]="nodesForm.controls[selectedId!]"></editor-form-node>
+      </ng-container>
+      <ng-container *ngSwitchCase="'edge'">
+        ID: {{ selectedId }}
+      </ng-container>
+    </ng-container>
   </mat-sidenav>
 </mat-sidenav-container>
