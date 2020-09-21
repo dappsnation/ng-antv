@@ -53,4 +53,5 @@ export abstract class G6Item<Config extends ModelConfig> {
   @Output() mousemove = new EventEmitter<IG6GraphEvent>();
   @Output() hover = new EventEmitter<IG6GraphEvent>();
   @Output() wheel = new EventEmitter<IG6GraphEvent>();
+  @Output() selectChange = new EventEmitter<boolean>();
 }

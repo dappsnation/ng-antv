@@ -11,7 +11,7 @@
       [maxZoom]="canvasForm.select('maxZoom') | async"
     >
       <ng-container *ngFor="let node of nodesForm.value$ | async">
-        <g6-node [config]="node" (click)="select('node', node.id)"></g6-node>
+        <g6-node [config]="node" (click)="select('node', node.id)" (selectChange)="onSelect($event)"></g6-node>
       </ng-container>
       <ng-container *ngFor="let edge of edges">
         <g6-edge [config]="edge" (click)="select('edge', edge.id)"></g6-edge>
@@ -26,7 +26,7 @@
         <editor-form-canvas [form]="canvasForm"></editor-form-canvas>
       </ng-container>
       <ng-container *ngSwitchCase="'node'">
-        <editor-form-node [form]="nodesForm.controls[selectedId!]"></editor-form-node>
+        <editor-form-node [form]="nodesForm.getNode(selectedId!)"></editor-form-node>
       </ng-container>
       <ng-container *ngSwitchCase="'edge'">
         ID: {{ selectedId }}

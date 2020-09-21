@@ -3,13 +3,12 @@ import { map, startWith } from 'rxjs/operators';
 import { NodeConfig } from '@antv/g6/lib/types';
 import { Observable } from 'rxjs';
 
-export class FormNode extends FormGroup {
+export class FormEdge extends FormGroup {
 
   constructor(node: Partial<NodeConfig> = {}) {
     super({
       id: new FormControl(node.id),
       label: new FormControl(node.label),
-      shape: new FormControl(node.shape),
     })
   }
 
@@ -21,13 +20,13 @@ export class FormNode extends FormGroup {
 
 }
 
-export class FormNodeList extends FormGroup {
+export class FormEdgeList extends FormGroup {
   value$: Observable<NodeConfig[]>;
   
   constructor(nodes: NodeConfig[] = []) {
-    const controls: Record<string, FormNode> = {};
+    const controls: Record<string, FormEdge> = {};
     for (const node of nodes) {
-      controls[node.id] = new FormNode(node);
+      controls[node.id] = new FormEdge(node);
     }
     super(controls);
     this.value$ = this.valueChanges.pipe(
@@ -38,10 +37,10 @@ export class FormNodeList extends FormGroup {
 
 
   add(node: NodeConfig) {
-    this.addControl(node.id, new FormNode(node));
+    this.addControl(node.id, new FormEdge(node));
   }
 
-  getNode(id: string): FormNode {
-    return this.controls[id] as FormNode;
+  getNode(id: string): FormEdge {
+    return this.controls[id] as FormEdge;
   }
 }

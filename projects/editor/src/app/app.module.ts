@@ -17,13 +17,15 @@ import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { FormNodeComponent } from './form-node/form-node.component';
+import { FormEdgeComponent } from './form-edge/form-edge.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     FormCanvasComponent,
-    FormNodeComponent
+    FormNodeComponent,
+    FormEdgeComponent
   ],
   imports: [
     BrowserModule,

@@ -26,8 +26,12 @@ export class AppComponent {
     this.edges.push(edge);
   }
 
-  select(selection: 'node' | 'graph', id?: string) {
+  select(selection: 'node' | 'edge' | 'graph', id?: string) {
     this.selection = selection;
     this.selectedId = id;
+  }
+
+  onSelect(e: boolean) {
+    console.log('on select', e)
   }
 }
