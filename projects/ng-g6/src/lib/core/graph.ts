@@ -10,7 +10,8 @@ type CanvasEvent = KeysMatching<G6GraphBase, EventEmitter<IG6GraphEvent>>;
 @Directive()
 export abstract class G6GraphBase implements OnDestroy {
   abstract graph: Graph | TreeGraph;
-  public overlayRef: OverlayRef;
+  public overlayRef?: OverlayRef;
+  protected items: Partial<Record<ITEM_TYPE, Record<string, any>>> = {}
 
 
   @Input() set mode(mode: string) {
@@ -44,7 +45,10 @@ export abstract class G6GraphBase implements OnDestroy {
 
   startListening(): void {
     const triggerEventOn = (item: ITEM_TYPE, name: string) => (e: IG6GraphEvent) => {
-      this[item]?.[e.item?.getID()]?.[name].emit(e);
+      const id = e.item?.getID();
+      if (id) {
+        return this.items[item]?.[id]?.[name].emit(e);
+      }
     }
 
     const triggerEvent = (name: CanvasEvent) => (e: IG6GraphEvent) => {
@@ -52,30 +56,31 @@ export abstract class G6GraphBase implements OnDestroy {
       return type ? triggerEventOn(type, name)(e) : this[name].emit(e);
     }
 
+    if (this.graph) {
+      this.graph.on(G6Event.CONTEXTMENU, triggerEvent('contextmenu'));
+      this.graph.on(G6Event.MOUSEOVER, triggerEvent('hover'));
+      this.graph.on(G6Event.DBLCLICK, triggerEvent('dbclick'));
+      this.graph.on(G6Event.MOUSEENTER, triggerEvent('mouseenter'));
+      this.graph.on(G6Event.MOUSELEAVE, triggerEvent('mouseleave'));
+      this.graph.on(G6Event.MOUSEMOVE, triggerEvent('mousemove'));
+      this.graph.on(G6Event.WHEEL, triggerEvent('wheel'));
+      // Close context menu when click outside
+      this.graph.on(G6Event.CLICK, (e: IG6GraphEvent) => {
+        this.closeContextMenu();
+        triggerEvent('click')(e);
+      });
     
-    this.graph.on(G6Event.CONTEXTMENU, triggerEvent('contextmenu'));
-    this.graph.on(G6Event.MOUSEOVER, triggerEvent('hover'));
-    this.graph.on(G6Event.DBLCLICK, triggerEvent('dbclick'));
-    this.graph.on(G6Event.MOUSEENTER, triggerEvent('mouseenter'));
-    this.graph.on(G6Event.MOUSELEAVE, triggerEvent('mouseleave'));
-    this.graph.on(G6Event.MOUSEMOVE, triggerEvent('mousemove'));
-    this.graph.on(G6Event.WHEEL, triggerEvent('wheel'));
-    // Close context menu when click outside
-    this.graph.on(G6Event.CLICK, (e: IG6GraphEvent) => {
-      this.closeContextMenu();
-      triggerEvent('click')(e);
-    });
+      // NODE
+      this.graph.on(G6Event.NODE_DRAG, triggerEventOn('node', 'drag'));
+      this.graph.on(G6Event.NODE_DRAGSTART, triggerEventOn('node', 'dragstart'));
+      this.graph.on(G6Event.NODE_DRAGEND, triggerEventOn('node', 'dragend'));
+      this.graph.on(G6Event.NODE_DRAGLEAVE, triggerEventOn('node', 'dragleave'));
+      this.graph.on(G6Event.NODE_DROP, triggerEventOn('node', 'drop'));
   
-    // NODE
-    this.graph.on(G6Event.NODE_DRAG, triggerEventOn('node', 'drag'));
-    this.graph.on(G6Event.NODE_DRAGSTART, triggerEventOn('node', 'dragstart'));
-    this.graph.on(G6Event.NODE_DRAGEND, triggerEventOn('node', 'dragend'));
-    this.graph.on(G6Event.NODE_DRAGLEAVE, triggerEventOn('node', 'dragleave'));
-    this.graph.on(G6Event.NODE_DROP, triggerEventOn('node', 'drop'));
-
-
-    // Behavior built-in
-    this.graph.on('aftercreateedge', ({ edge }: { edge: Item }) => this.createEdge.emit(edge.getModel()));
+  
+      // Behavior built-in
+      this.graph.on('aftercreateedge', ({ edge }: { edge: Item }) => this.createEdge.emit(edge.getModel()));
+    }
 
   }
 

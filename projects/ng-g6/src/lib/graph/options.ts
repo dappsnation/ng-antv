@@ -6,14 +6,13 @@ export const G6_GRAPH_OPTIONS = new InjectionToken<GraphOptions>('Default option
 export const defaultOptions: Partial<GraphOptions> = {
   modes: {
     default: [
-      'drag-canvas',  // ALT + drag
-      'zoom-canvas',
-      'drag-node',
-      'create-edge',
-      'brush-select',
+      // 'drag-canvas',
+      // 'zoom-canvas',
+      // 'drag-node',
+      // 'create-edge',
+      // 'brush-select',
       // 'click-select',
       // 'drag-group',
-      // 'drag-node-with-group'
     ],
   },
   layout: {

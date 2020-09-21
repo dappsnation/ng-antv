@@ -21,8 +21,8 @@
     ],
     "paths": {
       "ng-g6/*": [
-        "projects/ng-g6/ng-g6",
-        "projects/ng-g6"
+        "projects/ng-g6/src/lib/*",
+        "projects/ng-g6/src/lib"
       ],
       "ng-g6": [
         "dist/ng-g6/ng-g6",

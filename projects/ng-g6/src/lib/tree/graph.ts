@@ -5,7 +5,9 @@ import { G6GraphBase } from '../core';
 import { G6TreeNode } from './node';
 import { G6_TREE_GRAPH_OPTIONS } from './options';
 
-
+type ItemRecord = {
+  node: Record<string, G6TreeNode>,
+}
 
 @Component({
   selector: 'g6-tree-graph',
@@ -15,7 +17,10 @@ import { G6_TREE_GRAPH_OPTIONS } from './options';
 })
 export class G6TreeGraph extends G6GraphBase {
   public graph: TreeGraph;
-  private node: Record<string, G6TreeNode> = {};
+  protected items: ItemRecord = {
+    node: {}
+  }
+
   @ContentChild(G6TreeNode) root?: G6TreeNode;
 
   @Input() set layout(layout: LayoutConfig) {
@@ -23,17 +28,18 @@ export class G6TreeGraph extends G6GraphBase {
   }
 
   constructor(
-    @Inject(G6_TREE_GRAPH_OPTIONS) options: Partial<GraphOptions>,
-    el: ElementRef<HTMLElement>,
+    @Inject(G6_TREE_GRAPH_OPTIONS) private options: Partial<GraphOptions>,
+    private el: ElementRef<HTMLElement>,
     viewContainerRef: ViewContainerRef
   ) {
     super(viewContainerRef);
-    const container = el.nativeElement;
-    const { width, height } = container.getBoundingClientRect();
-    this.graph = new TreeGraph({ container, width, height, ...options });
+    const container = this.el.nativeElement;
+    this.graph = new TreeGraph({ ...this.options, container, width: 0, height: 0 });
   }
-
+  
   ngAfterViewInit(): void {
+    const { width, height } = this.el.nativeElement.getBoundingClientRect();
+    this.graph.changeSize(width, height);
     if (this.root) {
       this.updateNodes();
       this.graph.data(this.root.config);
@@ -44,9 +50,9 @@ export class G6TreeGraph extends G6GraphBase {
 
   private updateNodes() {
     const nodes = this.root?.getChildren() ?? [];
-    this.node = {};
+    this.items.node = {};
     for (const node of nodes) {
-      this.node[node.id] = node;
+      this.items.node[node.id] = node;
     }
   }
 

@@ -1,0 +1,17 @@
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <g6-graph [mode]="canvasForm.mode$ | async" [modes]="canvasForm.modes$ | async">
+      <ng-container *ngFor="let node of nodes">
+        <g6-node [config]="node"></g6-node>
+      </ng-container>
+      <ng-container *ngFor="let edge of edges">
+        <g6-edge [config]="edge"></g6-edge>
+      </ng-container>
+    </g6-graph>
+  </mat-sidenav-content>
+
+  <mat-sidenav mode="side" opened position="end">
+    <button mat-button (click)="addNode()">Add node</button>
+    <editor-form-canvas [form]="canvasForm"></editor-form-canvas>
+  </mat-sidenav>
+</mat-sidenav-container>

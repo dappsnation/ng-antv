@@ -1,0 +1,55 @@
+<form [formGroup]="form">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>Modes</mat-expansion-panel-header>
+      
+      <!-- Current Mode -->
+      <mat-form-field>
+        <mat-label>Select Mode</mat-label>
+        <mat-select formControlName="mode">
+          <mat-option *ngFor="let mode of form.modeKeys$ | async" [value]="mode">
+            {{ mode }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div formGroupName="modes">
+        <ng-container *ngFor="let mode of form.modeKeys$ | async">
+          <mat-form-field>
+            <mat-label>{{ mode }}</mat-label>
+            <mat-select [formControlName]="mode" multiple>
+              <mat-option *ngFor="let mode of modes" [value]="mode">
+                {{mode}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Add a new mode</mat-label>
+          <input #modeName placeholder="modeName" matInput/>
+        </mat-form-field>
+        <button mat-button (click)="addMode(modeName)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>Layout</mat-expansion-panel-header>
+      
+      <div formGroupName="modes">
+        <h5 class="mat-subtitle">Default</h5>
+        <mat-form-field>
+          <mat-label>Modes</mat-label>
+          <mat-select formControlName="default" multiple>
+            <mat-option *ngFor="let mode of modes" [value]="mode">
+              {{mode}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</form>

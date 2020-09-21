@@ -12,6 +12,12 @@
     },
     {
       "path": "./projects/ng-g6/tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/editor/tsconfig.app.json"
+    },
+    {
+      "path": "./projects/editor/tsconfig.spec.json"
     }
 ]
 }

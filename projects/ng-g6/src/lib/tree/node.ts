@@ -55,11 +55,12 @@ export class G6TreeNode {
   @ContentChildren(G6TreeNode) children!: QueryList<G6TreeNode>;
 
   getChildren(): G6TreeNode[]  {
-    const children = this.children;
-    return children.map((child: G6TreeNode) => {
+    const output: G6TreeNode[] = [];
+    for (const child of this.children) {
       const children = child.getChildren();
-      return [ child, ...children ];
-    }).flat();
+      output.concat(children);
+    }
+    return output;
   }
 
 }
