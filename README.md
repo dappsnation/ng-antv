@@ -1,16 +1,12 @@
 <h1 align="center">Angular antv</h1>
 
-<div align="center">
 A repository for Angular helpers around the [@antv vision](https://antv.vision/) libraries.
-</div>
 
 
 ## [G6](https://g6.antv.vision/)
-<div align="center">
 [![GitHub](https://img.shields.io/github/license/dappsnation/ng-antv)](LICENSE)
 [![npm](https://img.shields.io/npm/v/ng-antv-g6)](https://www.npmjs.com/package/ng-antv-g6)
 [![npm](https://img.shields.io/npm/dm/ng-antv-g6)](https://www.npmjs.com/package/ng-antv-g6)
-</div>
 
 ```
 npm install @antv/g6 ng-antv-g6
