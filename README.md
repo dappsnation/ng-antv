@@ -8,11 +8,15 @@ A repository for Angular helpers around the [@antv vision](https://antv.vision/)
 [![npm](https://img.shields.io/npm/v/ng-antv-g6)](https://www.npmjs.com/package/ng-antv-g6)
 [![npm](https://img.shields.io/npm/dm/ng-antv-g6)](https://www.npmjs.com/package/ng-antv-g6)
 
+[Documentation](https://ng-antv.netlify.app/doc)
+
 ```
 npm install @antv/g6 ng-antv-g6
 ```
 
 ### Graph
+[Online Editor](https://ng-antv.netlify.app/graph)
+
 Create a module with your default config, and import it into you `AppModule`.
 `g6.module.ts`
 ```typescript
