@@ -1,27 +1,109 @@
-# NgG6
+# Angular antv
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.7.
+A repository for angular helpers around the [@antv vision](https://antv.vision/) libraries.
 
-## Development server
+## [G6](https://g6.antv.vision/)
+```
+npm install @antv/g6 ng-antv-g6
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Graph
+Create a module with your default config, and import it into you `AppModule`.
+`g6.module.ts`
+```typescript
+import { G6GraphModule, G6_GRAPH_OPTIONS } from 'ng-antv-g6';
 
-## Code scaffolding
+@NgModule({
+  exports: [ G6GraphModule ],
+  providers: [
+    {
+      provide: G6_GRAPH_OPTIONS,
+      useValue: {
+        modes: { default: ['drag-canvas', 'zoom-canvas'] },
+        layout: {
+          type: 'dagre',
+          ranksep: 10,
+        },
+        defaultNode: {
+          type: 'rect',
+          anchorPoints: [[ 0.5, 0 ], [ 0.5, 1 ]],
+        },
+      }
+    },
+  ]
+})
+export class G6Module {}
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Now you can use it in your template : 
+```html
+<g6-graph>
+  <g6-node id="0" label="root"></g6-node>
+  <g6-node id="1" label="leaf"></g6-node>
+  <g6-edge source="0" target="1"></g6-edge>
+</g6-graph>
+```
 
-## Build
+The canvas will have the same size as the `g6-graph` tag so don't forget to set its height : 
+```scss
+g6-graph {
+  height: 500px;
+  width: 500px;
+}
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### G6TreeGraph
+`G6TreeGraph` can have default config.
+`g6.module.ts`
+```typescript
+import { G6TreeGraphModule, G6_TREE_GRAPH_OPTIONS } from 'ng-antv-g6';
 
-## Running unit tests
+@NgModule({
+  exports: [ G6TreeGraphModule ],
+  providers: [
+    {
+      provide: G6_TREE_GRAPH_OPTIONS,
+      useValue: {
+        modes: { default: ['zoom-canvas', 'drag-node'] },
+        layout: {
+          type: 'dendrogram',
+          direction: 'LR',
+        },
+      }
+    },
+  ]
+})
+export class G6Module {}
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Now you can use it in your template : 
+```html
+<g6-tree-graph>
+  <g6-tree-node label="root">
+    <g6-tree-node label="leaf_1"></g6-tree-node>
+    <g6-tree-node label="leaf_2"></g6-tree-node>
+  </g6-tree-node>
+</g6-tree-graph>
+```
 
-## Running end-to-end tests
+### Menu
+The Menu uses `@angular/cdk` for the overlay :
+```
+npm install @angular/cdk
+```
+And you need to import the style in 
+`styles.scss`
+```scss
+@import '~@angular/cdk/overlay-prebuilt.css';
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+> If you're using @angular/material, you don't need to import it.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```html
+<g6-graph>
+  <ng-template #menu g6Menu let-node>
+    <button (click)="delete(node.id)">Delete</button>
+  </ng-template>
+  <g6-node id="1" label="root" (contextmenu)="menu.open($event)"></g6-node>
+</g6-graph>
+```
