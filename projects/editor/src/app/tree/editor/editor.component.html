@@ -1,0 +1,40 @@
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <g6-tree-graph (click)="select('graph')">
+      <ng-container *ngIf="nodesForm.value$ | async as node">
+        <ng-container *ngTemplateOutlet="nodeTpl; context: { $implicit: node }"></ng-container>
+      </ng-container>
+
+      <!-- Template needs to be inside the g6-tree-graph to be found -->
+      <ng-template #nodeTpl let-node>
+        <g6-tree-node [config]="node" (click)="select('node', node.id)">
+          <ng-container *ngFor="let child of node.children">
+            <!-- Doesn't work as nodeTpl is not in the g6-tree-node -->
+            <ng-container *ngTemplateOutlet="nodeTpl; context: { $implicit: child }"></ng-container>
+          </ng-container>
+        </g6-tree-node>
+      </ng-template>
+
+    </g6-tree-graph>
+  </mat-sidenav-content>
+
+  <mat-sidenav mode="side" opened position="end">
+    <mat-toolbar>
+      <h5>{{ selection | titlecase }}</h5>
+    </mat-toolbar>
+    {{ nodesForm.value$ | async | json }}
+    <ng-container [ngSwitch]="selection">
+      <ng-container *ngSwitchCase="'graph'">
+        <editor-form-canvas [form]="canvasForm"></editor-form-canvas>
+      </ng-container>
+      <ng-container *ngSwitchCase="'node'">
+        <editor-form-node [form]="nodesForm"></editor-form-node>
+      </ng-container>
+    </ng-container>
+  </mat-sidenav>
+</mat-sidenav-container>
+
+<a class="home" mat-mini-fab routerLink="/">
+  <mat-icon>home</mat-icon>
+</a>
+

@@ -1,0 +1,70 @@
+<form [formGroup]="form">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>Modes</mat-expansion-panel-header>
+      
+      <!-- Current Mode -->
+      <mat-form-field>
+        <mat-label>Select Mode</mat-label>
+        <mat-select formControlName="mode">
+          <mat-option *ngFor="let mode of form.modeKeys$ | async" [value]="mode">
+            {{ mode }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div formGroupName="modes">
+        <ng-container *ngFor="let mode of form.modeKeys$ | async">
+          <mat-form-field>
+            <mat-label>{{ mode }}</mat-label>
+            <mat-select [formControlName]="mode" multiple>
+              <mat-option *ngFor="let mode of modes" [value]="mode">
+                {{mode}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Add a new mode</mat-label>
+          <input #modeName placeholder="modeName" matInput/>
+        </mat-form-field>
+        <button mat-button (click)="addMode(modeName)">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>Layout</mat-expansion-panel-header>
+        <!-- Current Mode -->
+        <mat-form-field>
+          <mat-label>Select Mode</mat-label>
+          <mat-select (valueChange)="form.setControl('layout', $event)">
+            <mat-option *ngFor="let layout of layouts | keyvalue" [value]="layout.value">
+              {{ layout.key }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div formGroupName="layout">
+          <!-- Custom form here -->
+        </div>
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>Canvas</mat-expansion-panel-header>
+      
+        <mat-form-field>
+          <mat-label>Min Zoom</mat-label>
+          <input placeholder="0" matInput type="number" formControlName="minZoom" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Max Zoom</mat-label>
+          <input placeholder="0" matInput type="number" formControlName="maxZoom" />
+        </mat-form-field>
+        <mat-slide-toggle formControlName="autopaint">Autopaint</mat-slide-toggle>
+    </mat-expansion-panel>
+  </mat-accordion>
+</form>

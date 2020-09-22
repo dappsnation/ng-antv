@@ -9,11 +9,11 @@ export class FormCanvas extends FormGroup {
   modes$ = this.select('modes');
   mode$ = this.select('mode');
 
-  constructor(options: Partial<GraphOptions> = {}) {
+  constructor() {
     super({
       mode: new FormControl('default'),
       modes: new FormGroup({
-        default: new FormControl(options.modes?.default || [])
+        default: new FormControl([])
       }),
       layout: new FormGroup({
         type: new FormControl(),

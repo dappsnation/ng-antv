@@ -16,12 +16,26 @@ type ItemRecord = {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class G6TreeGraph extends G6GraphBase {
+  private _root?: G6TreeNode;
   public graph: TreeGraph;
   protected items: ItemRecord = {
     node: {}
   }
 
-  @ContentChild(G6TreeNode) root?: G6TreeNode;
+  @ContentChild(G6TreeNode) 
+  set root(root: G6TreeNode) {
+    console.log(root);
+    if (!root) return;
+    if (!this._root) {
+      this._root = root;
+      this.init();
+    } else {
+      this.update();
+    }
+  }
+  get root() {
+    return this._root as G6TreeNode;
+  }
 
   @Input() set layout(layout: LayoutConfig) {
     this.graph.changeLayout(layout);
@@ -40,6 +54,9 @@ export class G6TreeGraph extends G6GraphBase {
   ngAfterViewInit(): void {
     const { width, height } = this.el.nativeElement.getBoundingClientRect();
     this.graph.changeSize(width, height);
+  }
+
+  private init() {
     if (this.root) {
       this.updateNodes();
       this.graph.data(this.root.config);
@@ -50,7 +67,9 @@ export class G6TreeGraph extends G6GraphBase {
 
   private updateNodes() {
     const nodes = this.root?.getChildren() ?? [];
-    this.items.node = {};
+    this.items.node = {
+      [this.root.id]: this.root
+    };
     for (const node of nodes) {
       this.items.node[node.id] = node;
     }

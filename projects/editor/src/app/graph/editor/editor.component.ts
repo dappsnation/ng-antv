@@ -1,9 +1,23 @@
 import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { EdgeConfig } from '@antv/g6/lib/types';
+import { EdgeConfig, GraphOptions, NodeConfig } from '@antv/g6/lib/types';
 import { G6Graph } from 'ng-antv-g6';
 import { FormCanvas } from '../form-canvas/form';
 import { FormEdgeList } from '../form-edge/form';
 import { FormNodeList } from '../form-node/form';
+
+const nodes: NodeConfig[] = [
+  { id: '0', label: 'root' },
+  { id: '1', label: 'leaf 1' },
+  { id: '2', label: 'leaf 2' }
+];
+
+const edges: EdgeConfig[] = [
+  { source: '0', target: '1' },
+];
+
+const canvas: Partial<GraphOptions> = {
+  modes: { default: ['zoom-canvas', 'drag-canvas', 'create-edge', 'drag-node'] } 
+}
 
 @Component({
   selector: 'editor-editor',
@@ -15,9 +29,9 @@ export class EditorComponent {
   @ViewChild(G6Graph) graph?: G6Graph;
   selection: 'node' | 'graph' | 'edge' = 'graph';
   selectedId?: string;
-  canvasForm = new FormCanvas();
-  nodesForm = new FormNodeList();
-  edgesForm = new FormEdgeList();
+  canvasForm = new FormCanvas(canvas);
+  nodesForm = new FormNodeList(nodes);
+  edgesForm = new FormEdgeList(edges);
   edges: EdgeConfig[] = [];
 
   addNode() {

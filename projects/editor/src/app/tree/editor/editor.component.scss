@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  position: relative;
+  height: 100%;
+}
+
+.home {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  z-index: 1;
+}
+
+mat-sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav {
+  width: 300px;
+}
+
+g6-tree-graph {
+  height: 100%;
+  width: 100%;
+}
+
+mat-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

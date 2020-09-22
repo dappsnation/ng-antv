@@ -1,0 +1,15 @@
+<form [formGroup]="form">
+  <mat-form-field>
+    <mat-label>Label</mat-label>
+    <input matInput formControlName="label" />
+  </mat-form-field>
+  <mat-list>
+    <h3 matSubheader>Children</h3>
+    <ng-container *ngFor="let child of form.children.controls | keyvalue">
+
+    </ng-container>
+    <mat-list-item (click)="form.children.add({ id: 'not-random' })">
+      Add child
+    </mat-list-item>
+  </mat-list>
+</form>

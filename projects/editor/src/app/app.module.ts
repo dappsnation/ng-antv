@@ -13,6 +13,9 @@ const routes: Route[] = [{
 },{
   path: 'graph',
   loadChildren: () => import('./graph/graph.module').then(m => m.GraphModule)
+},{
+  path: 'tree',
+  loadChildren: () => import('./tree/tree.module').then(m => m.TreeModule)
 }]
 
 @NgModule({

@@ -1,5 +1,6 @@
-import { Directive, ContentChildren, Input, Output, EventEmitter, QueryList } from "@angular/core";
+import { Directive, ContentChildren, Input, Output, EventEmitter, QueryList, SimpleChange } from "@angular/core";
 import { IG6GraphEvent, ModelConfig, NodeConfig, ShapeStyle, StateStyles, TreeGraphData } from '@antv/g6/lib/types';
+import { Subject } from 'rxjs';
 
 const nodeKeys: (keyof TreeGraphData)[] = [
   'id', 'label', 'x', 'y',
@@ -33,7 +34,7 @@ export class G6TreeNode {
   }
   get config(): TreeGraphData {
     const item = {};
-    copy(item, this, nodeKeys);
+    copy(this, item, nodeKeys);
     return { ...item, children: this.children.map(node => node.config) } as TreeGraphData;
   }
 
@@ -50,7 +51,6 @@ export class G6TreeNode {
   @Output() dragend = new EventEmitter<IG6GraphEvent>();
   @Output() dragleave = new EventEmitter<IG6GraphEvent>();
   @Output() drop = new EventEmitter<IG6GraphEvent>();
-
 
   @ContentChildren(G6TreeNode) children!: QueryList<G6TreeNode>;
 

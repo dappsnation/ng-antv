@@ -18,6 +18,7 @@ npm install @antv/g6 ng-antv-g6
 [Online Editor](https://ng-antv.netlify.app/graph)
 
 Create a module with your default config, and import it into you `AppModule`.
+
 `g6.module.ts`
 ```typescript
 import { G6GraphModule, G6_GRAPH_OPTIONS } from 'ng-antv-g6';
@@ -63,6 +64,7 @@ g6-graph {
 
 ### G6TreeGraph
 `G6TreeGraph` can have default config.
+
 `g6.module.ts`
 ```typescript
 import { G6TreeGraphModule, G6_TREE_GRAPH_OPTIONS } from 'ng-antv-g6';
@@ -92,6 +94,25 @@ Now you can use it in your template :
     <g6-tree-node label="leaf_1"></g6-tree-node>
     <g6-tree-node label="leaf_2"></g6-tree-node>
   </g6-tree-node>
+</g6-tree-graph>
+```
+
+⚠️ Due to an [angular issue](https://github.com/angular/angular/issues/14842), the tree graph won't work with dynamic node.
+The example below **won't** work : ⚠️
+```html
+<g6-tree-graph>
+  <ng-container *ngTemplateOutlet="nodeTpl; context: { $implicit: node }"></ng-container>
+
+  <!-- Root will be found as it's inside the graph -->
+  <ng-template #nodeTpl let-node>
+    <g6-tree-node>
+      <ng-container *ngFor="let child of node.children">
+        <!-- Doesn't work as nodeTpl is not in the g6-tree-node -->
+        <ng-container *ngTemplateOutlet="nodeTpl; context: { $implicit: child }"></ng-container>
+      </ng-container>
+    </g6-tree-node>
+  </ng-template>
+
 </g6-tree-graph>
 ```
 
