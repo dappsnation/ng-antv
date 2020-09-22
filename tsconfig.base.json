@@ -20,13 +20,8 @@
       "dom"
     ],
     "paths": {
-      "ng-antv-g6/*": [
-        "projects/g6/lib/*",
-        "projects/g6/lib"
-      ],
       "ng-antv-g6": [
-        "dist/g6/g6",
-        "dist/g6"
+        "projects/g6/src/index"
       ]
     }
   },
