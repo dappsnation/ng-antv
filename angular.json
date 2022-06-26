@@ -10,7 +10,7 @@
       "prefix": "g6",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/g6/tsconfig.lib.json",
             "project": "projects/g6/ng-package.json"
@@ -27,18 +27,6 @@
             "main": "projects/g6/src/test.ts",
             "tsConfig": "projects/g6/tsconfig.spec.json",
             "karmaConfig": "projects/g6/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/g6/tsconfig.lib.json",
-              "projects/g6/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
@@ -65,7 +53,6 @@
             "main": "projects/editor/src/main.ts",
             "polyfills": "projects/editor/src/polyfills.ts",
             "tsConfig": "projects/editor/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/editor/src/favicon.ico",
               "projects/editor/src/assets"
@@ -75,11 +62,17 @@
               "projects/editor/src/assets/theme/material.dark.css"
             ],
             "scripts": [
-              "node_modules/marked/lib/marked.js",
+              "node_modules/marked/marked.min.js",
               "node_modules/prismjs/prism.js",
               "node_modules/prismjs/components/prism-typescript.min.js",
               "node_modules/prismjs/components/prism-css.min.js"
-            ]
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -92,7 +85,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -110,7 +102,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -146,19 +139,6 @@
             "scripts": []
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/editor/tsconfig.app.json",
-              "projects/editor/tsconfig.spec.json",
-              "projects/editor/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -172,6 +152,6 @@
           }
         }
       }
-    }},
-  "defaultProject": "g6"
+    }
+  }
 }
