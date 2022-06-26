@@ -1,6 +1,9 @@
 {
   "name": "ng-antv",
   "version": "0.0.2",
+  "engines": {
+    "node": "16.14.0"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
