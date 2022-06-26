@@ -28,18 +28,6 @@
             "tsConfig": "projects/g6/tsconfig.spec.json",
             "karmaConfig": "projects/g6/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/g6/tsconfig.lib.json",
-              "projects/g6/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -149,19 +137,6 @@
               "projects/editor/src/styles.scss"
             ],
             "scripts": []
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/editor/tsconfig.app.json",
-              "projects/editor/tsconfig.spec.json",
-              "projects/editor/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         },
         "e2e": {
