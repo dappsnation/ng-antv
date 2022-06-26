@@ -1,15 +1,15 @@
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { NodeConfig } from '@antv/g6/lib/types';
 import { Observable } from 'rxjs';
 
-export class FormNode extends FormGroup {
+export class FormNode extends UntypedFormGroup {
 
   constructor(node: Partial<NodeConfig> = {}) {
     super({
-      id: new FormControl(node.id),
-      label: new FormControl(node.label),
-      shape: new FormControl(node.shape),
+      id: new UntypedFormControl(node.id),
+      label: new UntypedFormControl(node.label),
+      shape: new UntypedFormControl(node.shape),
     })
   }
 
@@ -21,7 +21,7 @@ export class FormNode extends FormGroup {
 
 }
 
-export class FormNodeList extends FormGroup {
+export class FormNodeList extends UntypedFormGroup {
   value$: Observable<NodeConfig[]>;
   
   constructor(nodes: NodeConfig[] = []) {

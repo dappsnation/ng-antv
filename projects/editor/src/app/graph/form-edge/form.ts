@@ -1,17 +1,17 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { EdgeConfig } from '@antv/g6/lib/types';
 import { Observable } from 'rxjs';
 
-export class FormEdge extends FormGroup {
+export class FormEdge extends UntypedFormGroup {
 
   constructor(node: Partial<EdgeConfig> = {}) {
     super({
-      id: new FormControl(node.id),
-      type: new FormControl(node.type),
-      label: new FormControl(node.label),
-      source: new FormControl(node.source),
-      target: new FormControl(node.target),
+      id: new UntypedFormControl(node.id),
+      type: new UntypedFormControl(node.type),
+      label: new UntypedFormControl(node.label),
+      source: new UntypedFormControl(node.source),
+      target: new UntypedFormControl(node.target),
     })
   }
 
@@ -23,7 +23,7 @@ export class FormEdge extends FormGroup {
 
 }
 
-export class FormEdgeList extends FormGroup {
+export class FormEdgeList extends UntypedFormGroup {
   value$: Observable<EdgeConfig[]>;
   
   constructor(edges: EdgeConfig[] = []) {

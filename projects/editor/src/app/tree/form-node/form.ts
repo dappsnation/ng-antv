@@ -1,17 +1,17 @@
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import { TreeGraphData } from '@antv/g6/lib/types';
 import { Observable } from 'rxjs';
 
-export class FormNode extends FormGroup {
+export class FormNode extends UntypedFormGroup {
 
   value$ = this.valueChanges.pipe(startWith(this.value));
 
   constructor(node: Partial<TreeGraphData> = {}) {
     super({
-      id: new FormControl(node.id),
-      label: new FormControl(node.label),
-      children: new FormArray(node.children?.map(child => new FormNode(child)) || [])
+      id: new UntypedFormControl(node.id),
+      label: new UntypedFormControl(node.label),
+      children: new UntypedFormArray(node.children?.map(child => new FormNode(child)) || [])
     })
   }
 
@@ -27,7 +27,7 @@ export class FormNode extends FormGroup {
 
 }
 
-export class FormNodeList extends FormGroup {
+export class FormNodeList extends UntypedFormGroup {
   value$: Observable<TreeGraphData[]>;
   
   constructor(nodes: TreeGraphData[] = []) {

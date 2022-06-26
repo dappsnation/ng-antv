@@ -1,5 +1,5 @@
 import { Input, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { FormCanvas, layouts } from './form';
 
 const modes = [
@@ -25,7 +25,7 @@ export class FormCanvasComponent implements OnInit {
   }
 
   addMode(input: HTMLInputElement) {
-    this.form.modes.addControl(input.value, new FormControl([]));
+    this.form.modes.addControl(input.value, new UntypedFormControl([]));
     input.value = '';
   }
 
