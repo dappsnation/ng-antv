@@ -17,7 +17,7 @@ npm install @antv/g6 ng-antv-g6
 ### Graph
 [Online Editor](https://ng-antv.netlify.app/graph)
 
-Create a module with your default config, and import it into you `AppModule`.
+Create a module with your default config:
 
 `g6.module.ts`
 ```typescript
@@ -43,6 +43,31 @@ import { G6GraphModule, G6_GRAPH_OPTIONS } from 'ng-antv-g6';
   ]
 })
 export class G6Module {}
+```
+
+Import it into you `AppModule`:
+
+`app.module.ts`:
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppComponent } from './app.component';
+import { G6Module } from './g6.module';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    G6Module // <-- Here
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+
 ```
 
 Now you can use it in your template : 
