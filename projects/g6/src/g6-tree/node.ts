@@ -1,8 +1,7 @@
-import { Directive, ContentChildren, Input, Output, EventEmitter, QueryList, SimpleChange } from "@angular/core";
-import { IG6GraphEvent, ModelConfig, NodeConfig, ShapeStyle, StateStyles, TreeGraphData } from '@antv/g6/lib/types';
-import { Subject } from 'rxjs';
+import { Directive, ContentChildren, Input, Output, EventEmitter, QueryList } from "@angular/core";
+import { IG6GraphEvent, ModelConfig, ShapeStyle, StateStyles, TreeGraphData } from '@antv/g6';
 
-const nodeKeys: (keyof TreeGraphData)[] = [
+const nodeKeys: Extract<(keyof TreeGraphData), string>[] = [
   'id', 'label', 'x', 'y',
   'data', 'side', 'depth', 'collapsed',
   'style', 'stateStyles',

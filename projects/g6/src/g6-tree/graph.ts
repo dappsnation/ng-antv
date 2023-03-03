@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ContentChild, ElementRef, Inject, Input, ViewContainerRef  } from '@angular/core';
 import { TreeGraph } from '@antv/g6';
-import { GraphOptions, LayoutConfig } from '@antv/g6/lib/types';
+import { GraphOptions, LayoutConfig } from '@antv/g6';
 import { G6GraphBase } from '../g6-core';
 import { G6TreeNode } from './node';
 import { G6_TREE_GRAPH_OPTIONS } from './options';

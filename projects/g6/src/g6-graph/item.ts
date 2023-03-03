@@ -1,6 +1,6 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { ILabelConfig } from '@antv/g6/lib/interface/shape';
-import { IG6GraphEvent, IPoint, LabelStyle, ModelConfig, ShapeStyle, StateStyles } from '@antv/g6/lib/types';
+import { ILabelConfig } from '@antv/g6';
+import { IG6GraphEvent, IPoint, LabelStyle, ModelConfig, ShapeStyle, StateStyles } from '@antv/g6';
 
 export const itemKeys = [
   'shape', 'type', 'label', 'labelCfg', 'x', 'y',

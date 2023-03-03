@@ -4,7 +4,6 @@ export * from './g6-graph/graph';
 export * from './g6-graph/item';
 export * from './g6-graph/combo';
 export * from './g6-graph/edge';
-export * from './g6-graph/group';
 export * from './g6-graph/node';
 export * from './g6-graph/options';
 export * from './g6-graph/module';

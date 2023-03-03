@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, ContentChildren, ElementRef, Inject, Input, QueryList, ViewContainerRef } from '@angular/core';
-import { Graph } from '@antv/g6';
-import { GraphOptions, LayoutConfig } from '@antv/g6/lib/types';
+import { Graph, GraphOptions, LayoutConfig } from '@antv/g6';
 import { combineLatest, Subscription } from 'rxjs';
 import { debounceTime, startWith } from 'rxjs/operators';
 import { G6Combo } from './combo';
@@ -8,12 +7,10 @@ import { G6Edge } from './edge';
 import { G6Node } from './node';
 import { G6GraphBase } from '../g6-core';
 import { G6_GRAPH_OPTIONS } from './options';
-import { G6Group } from './group';
 
 type ItemRecord = {
   node: Record<string, G6Node>,
   edge: Record<string, G6Edge>,
-  group: Record<string, G6Group>,
   combo: Record<string, G6Combo>,
 }
 
@@ -29,7 +26,6 @@ export class G6Graph extends G6GraphBase {
   protected items: ItemRecord = {
     node: {},
     edge: {},
-    group: {},
     combo: {}
   };
 
@@ -44,8 +40,10 @@ export class G6Graph extends G6GraphBase {
     }
   }
 
-  @Input() set layout(layout: LayoutConfig) {
-    if (layout?.type) {
+  @Input() set layout(layout: LayoutConfig | string) {
+    if (typeof layout === 'string') {
+      this.graph.updateLayout({ type: layout })
+    } else if (layout?.type) {
       this.graph.updateLayout(layout)
     }
   }
@@ -53,17 +51,16 @@ export class G6Graph extends G6GraphBase {
 
   @ContentChildren(G6Node) private nodeQuery?: QueryList<G6Node>;
   @ContentChildren(G6Edge) private edgeQuery?: QueryList<G6Edge>;
-  @ContentChildren(G6Group) private groupQuery?: QueryList<G6Group>;
   @ContentChildren(G6Combo) private comboQuery?: QueryList<G6Combo>;
 
   constructor(
-    @Inject(G6_GRAPH_OPTIONS) private options: GraphOptions,
     private el: ElementRef<HTMLElement>,
-    viewContainerRef: ViewContainerRef
+    viewContainerRef: ViewContainerRef,
+    @Inject(G6_GRAPH_OPTIONS) baseOptions: GraphOptions,
   ) {
     super(viewContainerRef);
     const container = this.el.nativeElement;
-    this.graph = new Graph({ ...this.options, container, width: 0, height: 0 });
+    this.graph = new Graph({ ...baseOptions, container, width: 0, height: 0 });
   }
 
   ngAfterViewInit(): void {
@@ -74,14 +71,12 @@ export class G6Graph extends G6GraphBase {
     this.sub = combineLatest([
       this.nodeQuery?.changes.pipe(startWith(this.nodeQuery)) ?? [],
       this.edgeQuery?.changes.pipe(startWith(this.edgeQuery)) ?? [],
-      this.groupQuery?.changes.pipe(startWith(this.groupQuery)) ?? [],
       this.comboQuery?.changes.pipe(startWith(this.comboQuery)) ?? [],
     ]).pipe(
       debounceTime(100)
-    ).subscribe(([nodes, edges, groups, combos]) => {
+    ).subscribe(([nodes, edges, combos]) => {
       nodes.forEach((node: G6Node) => this.items.node[node.id] = node);
       edges.forEach((edge: G6Edge) => this.items.edge[edge.id] = edge);
-      groups.forEach((group: G6Group) => this.items.group[group.id] = group);
       combos.forEach((combo: G6Combo) => this.items.combo[combo.id] = combo);
       this.update();
     })
@@ -97,7 +92,6 @@ export class G6Graph extends G6GraphBase {
     this.graph.changeData({
       nodes: this.nodeQuery?.map(n => n.config) ?? [],
       edges: this.edgeQuery?.map(n => n.config) ?? [],
-      groups: this.groupQuery?.map(g => g.config) ?? [],
       combos: this.comboQuery?.map(c => c.config) ?? [],
     });
   }

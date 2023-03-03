@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { EdgeConfig, IPoint, LoopConfig } from '@antv/g6/lib/types';
+import { EdgeConfig, IPoint, LoopConfig } from '@antv/g6';
 import { G6Item, itemKeys } from './item';
 
 const edgeKeys = [

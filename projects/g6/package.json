@@ -1,10 +1,10 @@
 {
   "name": "ng-antv-g6",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "peerDependencies": {
     "@angular/common": ">12",
     "@angular/core": ">12",
-    "@antv/g6": ">3.7.3"
+    "@antv/g6": ">4.0.0"
   },
   "dependencies": {
     "tslib": "^2.0.0"

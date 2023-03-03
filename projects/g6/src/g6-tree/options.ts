@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { GraphOptions } from '@antv/g6/lib/types';
+import { GraphOptions } from '@antv/g6';
 
 export const G6_TREE_GRAPH_OPTIONS = new InjectionToken<Partial<GraphOptions>>('Default options for a Graph');
 

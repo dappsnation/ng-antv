@@ -1,5 +1,5 @@
 import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
-import { GraphOptions } from '@antv/g6/lib/types';
+import { GraphOptions } from '@antv/g6';
 import { map, startWith } from 'rxjs/operators';
 
 export class FormCanvas extends UntypedFormGroup {

@@ -24,7 +24,7 @@
     "@angular/platform-browser": "^14.0.3",
     "@angular/platform-browser-dynamic": "^14.0.3",
     "@angular/router": "^14.0.3",
-    "@antv/g6": "^3.7.3",
+    "@antv/g6": "^4.8.7",
     "ngx-markdown": "^14.0.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.4.0",

@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { ComboConfig, ComboTree, IG6GraphEvent } from '@antv/g6/lib/types';
+import { ComboConfig, ComboTree, IG6GraphEvent } from '@antv/g6';
 import { G6Item, itemKeys } from './item';
 
 const comboKeys = [ 'id', 'parentId', 'children', 'depth', 'padding', 'collapseIcon' ] as const;

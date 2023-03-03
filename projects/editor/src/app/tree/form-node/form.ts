@@ -1,6 +1,6 @@
 import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
-import { TreeGraphData } from '@antv/g6/lib/types';
+import { TreeGraphData } from '@antv/g6';
 import { Observable } from 'rxjs';
 
 export class FormNode extends UntypedFormGroup {

@@ -1,5 +1,5 @@
 import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { EdgeConfig, GraphOptions, NodeConfig } from '@antv/g6/lib/types';
+import { EdgeConfig, GraphOptions, NodeConfig } from '@antv/g6';
 import { G6Graph } from 'ng-antv-g6';
 import { FormCanvas } from '../form-canvas/form';
 import { FormEdgeList } from '../form-edge/form';

@@ -1,6 +1,6 @@
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
-import { EdgeConfig } from '@antv/g6/lib/types';
+import { EdgeConfig } from '@antv/g6';
 import { Observable } from 'rxjs';
 
 export class FormEdge extends UntypedFormGroup {

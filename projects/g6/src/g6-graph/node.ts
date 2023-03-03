@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { IG6GraphEvent, NodeConfig } from '@antv/g6/lib/types';
+import { IG6GraphEvent, NodeConfig } from '@antv/g6';
 import { G6Item, itemKeys } from './item';
 
 const nodeKeys = [

@@ -1,8 +1,6 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { ViewContainerRef, Directive, Optional, Output, EventEmitter, OnDestroy, Input  } from '@angular/core';
-import { Graph, TreeGraph } from '@antv/g6';
-import { ICombo, IEdge, INode } from '@antv/g6/lib/interface/item';
-import { EdgeConfig, G6Event, IG6GraphEvent, Item, ITEM_TYPE } from '@antv/g6/lib/types';
+import { Graph, TreeGraph, EdgeConfig, ICombo, IEdge, INode, Item, ITEM_TYPE, IG6GraphEvent } from '@antv/g6';
 
 interface SelectionEvent extends IG6GraphEvent {
   select: boolean;
@@ -83,25 +81,25 @@ export abstract class G6GraphBase implements OnDestroy {
     canvas.onmouseenter = (e: MouseEvent) => e.stopPropagation();
     canvas.onmouseleave = (e: MouseEvent) => e.stopPropagation();
 
-    this.graph.on(G6Event.CONTEXTMENU, triggerEvent('contextmenu'));
-    this.graph.on(G6Event.MOUSEOVER, triggerEvent('hover'));
-    this.graph.on(G6Event.DBLCLICK, triggerEvent('dbclick'));
-    this.graph.on(G6Event.MOUSEENTER, triggerEvent('mouseenter'));
-    this.graph.on(G6Event.MOUSELEAVE, triggerEvent('mouseleave'));
-    this.graph.on(G6Event.MOUSEMOVE, triggerEvent('mousemove'));
-    this.graph.on(G6Event.WHEEL, triggerEvent('wheel'));
+    this.graph.on('contextmenu', triggerEvent('contextmenu'));
+    this.graph.on('mouseover', triggerEvent('hover'));
+    this.graph.on('dblclick', triggerEvent('dbclick'));
+    this.graph.on('mouseenter', triggerEvent('mouseenter'));
+    this.graph.on('mouseleave', triggerEvent('mouseleave'));
+    this.graph.on('mouseleave', triggerEvent('mousemove'));
+    this.graph.on('wheel', triggerEvent('wheel'));
     // Close context menu when click outside
-    this.graph.on(G6Event.CLICK, (e: IG6GraphEvent) => {
+    this.graph.on('click', (e: IG6GraphEvent) => {
       this.closeContextMenu();
       triggerEvent('click')(e);
     });
   
     // NODE
-    this.graph.on(G6Event.NODE_DRAG, triggerEventOn('node', 'drag'));
-    this.graph.on(G6Event.NODE_DRAGSTART, triggerEventOn('node', 'dragstart'));
-    this.graph.on(G6Event.NODE_DRAGEND, triggerEventOn('node', 'dragend'));
-    this.graph.on(G6Event.NODE_DRAGLEAVE, triggerEventOn('node', 'dragleave'));
-    this.graph.on(G6Event.NODE_DROP, triggerEventOn('node', 'drop'));
+    this.graph.on('node:drag', triggerEventOn('node', 'drag'));
+    this.graph.on('node:dragstart', triggerEventOn('node', 'dragstart'));
+    this.graph.on('node:dragend', triggerEventOn('node', 'dragend'));
+    this.graph.on('node:dragleave', triggerEventOn('node', 'dragleave'));
+    this.graph.on('node:dragover', triggerEventOn('node', 'dragover'));
 
 
     // Behavior built-in
