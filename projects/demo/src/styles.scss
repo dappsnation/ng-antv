@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
 .g6-component-tooltip {
   background-color: rgba(16, 11, 11, 0.8);
   color: rgb(246, 190, 190);

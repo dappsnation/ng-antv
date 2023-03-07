@@ -64,13 +64,13 @@ export abstract class G6GraphBase implements OnDestroy {
     const triggerEventOn = (item: ITEM_TYPE, name: string) => (e: IG6GraphEvent) => {
       const id = e.item?.getID();
       if (id) {
-        return this.items[item]?.[id]?.[name].emit(e);
+        return this.items[item]?.[id]?.[name]?.emit(e);
       }
     }
 
     const triggerEvent = (name: CanvasEvent) => (e: IG6GraphEvent) => {
       const type = e.item?.getType();
-      return type ? triggerEventOn(type, name)(e) : this[name].emit(e);
+      return type ? triggerEventOn(type, name)(e) : this[name]?.emit(e);
     }
 
 
@@ -107,15 +107,15 @@ export abstract class G6GraphBase implements OnDestroy {
     this.graph.on('nodeselectchange', (e: SelectionEvent) => {
       const change: SelectionChange = { nodes: [], combos: [], edges: [], selected: e.select };
       for (const item of e.selectedItems.nodes || []) {
-        this.items['node']?.[item.getID()]?.['selectChange'].emit(e.select);
+        this.items['node']?.[item.getID()]?.['selectChange']?.emit(e.select);
         change.nodes.push(item.getID());
       }
       for (const item of e.selectedItems.combos || []) {
-        this.items['combo']?.[item.getID()]?.['selectChange'].emit(e.select);
+        this.items['combo']?.[item.getID()]?.['selectChange']?.emit(e.select);
         change.combos.push(item.getID());
       }
       for (const item of e.selectedItems.edges || []) {
-        this.items['edge']?.[item.getID()]?.['selectChange'].emit(e.select);
+        this.items['edge']?.[item.getID()]?.['selectChange']?.emit(e.select);
         change.edges.push(item.getID());
       }
       this.selectChange.emit(change);

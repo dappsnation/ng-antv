@@ -1,9 +1,21 @@
-<g6-graph layout="dagre">
-  <g6-node id="0" label="root"></g6-node>
-  <g6-node id="1" label="leaf"></g6-node>
-  <g6-node id="2" label="leaf"></g6-node>
-  <g6-node id="3" label="leaf"></g6-node>
-  <g6-edge source="0" target="1"></g6-edge>
-  <g6-edge source="0" target="2"></g6-edge>
-  <g6-edge source="0" target="3"></g6-edge>
-</g6-graph>
+<main>
+  <g6-graph layout="dagre">
+    <ng-container *ngFor="let node of nodes; let first = first; let i = index">
+      <g6-node [id]="node" [label]="node"></g6-node>
+      <g6-edge *ngIf="!first" [source]="node[i - 1]" [target]="node[i]"></g6-edge>
+    </ng-container>
+    <!-- <g6-node id="0" label="root"></g6-node>
+    <g6-node id="1" label="leaf"></g6-node>
+    <g6-node id="2" label="leaf"></g6-node>
+    <g6-node id="3" label="leaf"></g6-node>
+    <g6-edge source="0" target="1"></g6-edge>
+    <g6-edge source="1" target="2"></g6-edge>
+    <g6-edge source="2" target="3"></g6-edge> -->
+  </g6-graph>
+  <aside>
+    <ul>
+      <li>A</li>
+      <li>B</li>
+    </ul>
+  </aside>
+</main>

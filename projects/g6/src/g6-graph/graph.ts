@@ -60,12 +60,13 @@ export class G6Graph extends G6GraphBase {
   ) {
     super(viewContainerRef);
     const container = this.el.nativeElement;
-    this.graph = new Graph({ ...baseOptions, container, width: 0, height: 0 });
+    const { width, height } = container.getBoundingClientRect();
+    this.graph = new Graph({ ...baseOptions, container, width, height });
   }
 
   ngAfterViewInit(): void {
-    const { width, height } = this.el.nativeElement.getBoundingClientRect();
-    this.graph.changeSize(width, height);
+    // const { width, height } = this.el.nativeElement.getBoundingClientRect();
+    // this.graph.changeSize(width, height);
     this.graph.data({});
     this.graph.render();
     this.sub = combineLatest([

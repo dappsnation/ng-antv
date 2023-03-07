@@ -9,8 +9,10 @@ import { Tooltip } from '@antv/g6';
       provide: G6_GRAPH_OPTIONS,
       useValue: {
         modes: { default: ['drag-canvas', 'zoom-canvas'] },
+        fitView: true,
         layout: {
           type: 'dagre',
+          rankdir: 'TB',
           ranksep: 10,
         },
         defaultNode: {
