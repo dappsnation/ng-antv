@@ -48,6 +48,9 @@ export class G6Graph extends G6GraphBase {
     }
   }
 
+  /** Refit the graph in the canvas on change. Only work if `fitView` is `true` */
+  @Input() autoFit: boolean | '' = false;
+
 
   @ContentChildren(G6Node) private nodeQuery?: QueryList<G6Node>;
   @ContentChildren(G6Edge) private edgeQuery?: QueryList<G6Edge>;
@@ -60,15 +63,14 @@ export class G6Graph extends G6GraphBase {
   ) {
     super(viewContainerRef);
     const container = this.el.nativeElement;
-    const { width, height } = container.getBoundingClientRect();
-    this.graph = new Graph({ ...baseOptions, container, width, height });
+    this.graph = new Graph({ ...baseOptions, container });
   }
-
+  
   ngAfterViewInit(): void {
-    // const { width, height } = this.el.nativeElement.getBoundingClientRect();
-    // this.graph.changeSize(width, height);
-    this.graph.data({});
-    this.graph.render();
+    const { width, height } = this.el.nativeElement.getBoundingClientRect();
+    if (width !== this.graph.getWidth() || height !== this.graph.getHeight()) {
+      this.graph.changeSize(width, height);
+    }
     this.sub = combineLatest([
       this.nodeQuery?.changes.pipe(startWith(this.nodeQuery)) ?? [],
       this.edgeQuery?.changes.pipe(startWith(this.edgeQuery)) ?? [],
@@ -90,10 +92,16 @@ export class G6Graph extends G6GraphBase {
   }
 
   update() {
-    this.graph.changeData({
+    const data = {
       nodes: this.nodeQuery?.map(n => n.config) ?? [],
       edges: this.edgeQuery?.map(n => n.config) ?? [],
       combos: this.comboQuery?.map(c => c.config) ?? [],
-    });
+    };
+    if (this.autoFit || this.autoFit === '') {
+      this.graph.data(data);
+      this.graph.render();
+    } else {
+      this.graph.changeData(data);
+    }
   }
 }

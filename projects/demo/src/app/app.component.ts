@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'demo';
-  nodes = new Array(10).fill(null).map(() => Math.round(Math.random() * 1000)).sort().map(node => node.toString());
+  nodes = new Array(30)
+    .fill(null)
+    .map(() => Math.round(Math.random() * 1000).toString());
 }
